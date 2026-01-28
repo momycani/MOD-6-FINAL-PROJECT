@@ -1,50 +1,54 @@
-import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import EmptyCart from "./empty_cart.svg";
 
 const Cart = ({ cart, changeQuantity, removeItem }) => {
   const total = () => {
-    let price = 0;
+    let sum = 0;
     cart.forEach((item) => {
-      price += +((item.salePrice || item.originalPrice) * item.quantity);
+      sum += Number(item.price ?? 0) * (item.quantity ?? 1);
     });
-    return price;
+    return sum;
   }; 
 
   return (
-    <div id="books__body">
-      <main id="books__main">
-        <div className="books__container">
+    <div id="movies__body">
+      <main id="movies__main">
+        <div className="movies__container">
           <div className="row">
-            <div className="book__selected--top">
+            <div className="movie__selected--top">
               <h2 className="cart__title">Cart</h2>
             </div>
             <div className="cart">
               <div className="cart__header">
-                <span className="cart__book">Book</span>
+                <span className="cart__movie">Movie</span>
                 <span className="cart__quantity">Quantity</span>
                 <span className="cart__total">Price</span>
-              </div>
+              </div>          
               <div className="cart__body">
-                {cart.map((book) => {
+                {cart.map((movie) => {
+                  const unitPrice = Number(movie.price ?? 0);
+                  const title = movie.Title || movie.title || "Untitled";
+                  const img = movie.Poster && movie.Poster !== "N/A" ? movie.Poster : "/assets/no-image.svg";
+
                   return (
-                    <div className="cart__item" key={book.id}>
-                      <div className="cart__book">
+                    <div className="cart__item" key={`${movie.imdbID}-${movie.cartType}`}>
+                      <div className="cart__movie">
                         <img
-                          className="cart__book--img"
-                          src={book.url}
-                          alt=""
+                          className="cart__movie--img"
+                          src={img}
+                          alt={title}
+                          onError={(e) => (e.currentTarget.src = "/assets/no-image.svg")}
                         />
-                        <div className="cart__book--info">
-                          <span className="cart__book--title">
-                            {book.title}
+                        <div className="cart__movie--info">
+                          <span className="cart__movie--title">
+                            {title}
                           </span>
-                          <span className="cart__book--price">
-                            ${(book.salePrice || book.originalPrice).toFixed(2)}
+                          <span className="cart__movie--price">
+                            {movie.cartType === "rent" ? "Rent" : "Buy"} • ${unitPrice.toFixed(2)}
                           </span>
                           <button
-                            className="cart__book--remove"
-                            onClick={() => removeItem(book)}
+                            className="cart__movie--remove"
+                            onClick={() => removeItem(movie)}
                           >
                             Remove
                           </button>
@@ -54,16 +58,16 @@ const Cart = ({ cart, changeQuantity, removeItem }) => {
                         <input
                           type="number"
                           className="cart__input"
-                          min={0}
+                          min={1}
                           max={99}
-                          value={book.quantity}
+                          value={movie.quantity}
                           onChange={(event) =>
-                            changeQuantity(book, event.target.value)
+                            changeQuantity(movie, event.target.value)
                           }
                         />
                       </div>
                       <div className="cart__total">
-                        ${((book.salePrice || book.originalPrice) * book.quantity).toFixed(2)}
+                        ${(unitPrice * movie.quantity).toFixed(2)}
                       </div>
                     </div>
                   );
@@ -72,9 +76,9 @@ const Cart = ({ cart, changeQuantity, removeItem }) => {
                 {(!cart || !cart.length) && (
                   <div className="cart__empty">
                     <img className="cart__empty--img" src={EmptyCart} alt="" />
-                    <h2>You don't have any books in your cart!</h2>
-                    <Link to="/books">
-                      <button className="btn">Browse books</button>
+                    <h2>You don't have any movies in your cart!</h2>
+                    <Link to="/movies">
+                      <button className="btn">Browse movies</button>
                     </Link>
                   </div>
                 )}
@@ -92,7 +96,7 @@ const Cart = ({ cart, changeQuantity, removeItem }) => {
                 </div>
                 <div className="total__item total__price">
                   <span>Total</span>
-                  <span>${total().toFixed(2)}</span>
+                  <span>${(total() * 1.1).toFixed(2)}</span>
                 </div>
                 <button className="btn btn__checkout no-cursor" onClick={() => alert(`Haven't got around to doing this :(`)}>
                   Proceed to checkout

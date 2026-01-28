@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { getPricesForImdbID } from "./components/pricing";
+import './styles.css';
 
 const API_KEY = "fca438ff";
 
-export default function MovieDetails() {
+export default function MovieDetails({ addToCart }) {
   const { imdbID } = useParams();
   const navigate = useNavigate();
-
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -20,9 +21,7 @@ export default function MovieDetails() {
         const res = await fetch(url);
         const data = await res.json();
 
-        if (!cancelled) {
-          setMovie(data.Response === "False" ? null : data);
-        }
+        if (!cancelled) setMovie(data.Response === "False" ? null : data);
       } catch {
         if (!cancelled) setMovie(null);
       } finally {
@@ -48,7 +47,13 @@ export default function MovieDetails() {
   }
 
   const poster =
-    movie.Poster && movie.Poster !== "N/A" ? movie.Poster : "/assets/no-image.svg";
+    movie.Poster && movie.Poster !== "N/A"
+      ? movie.Poster
+      : "/assets/no-image.svg";
+
+  const prices = getPricesForImdbID(movie.imdbID);
+  const rentPrice = Number(prices.rent);
+  const purchasePrice = Number(prices.purchase);
 
   return (
     <div className="movie-details">
@@ -67,24 +72,18 @@ export default function MovieDetails() {
 
         <div className="movie-details__info">
           <h1>{movie.Title}</h1>
+
           <p>
             <strong>{movie.Year}</strong> • {movie.Rated} • {movie.Runtime}
           </p>
 
-          <p>
-            <strong>Genre:</strong> {movie.Genre}
-          </p>
-          <p>
-            <strong>Director:</strong> {movie.Director}
-          </p>
-          <p>
-            <strong>Actors:</strong> {movie.Actors}
-          </p>
+          <p><strong>Genre:</strong> {movie.Genre}</p>
+          <p><strong>Director:</strong> {movie.Director}</p>
+          <p><strong>Actors:</strong> {movie.Actors}</p>
 
           <h3>Summary</h3>
           <p>{movie.Plot}</p>
 
-          {/* Optional: show ratings */}
           {Array.isArray(movie.Ratings) && movie.Ratings.length > 0 && (
             <>
               <h3>Ratings</h3>
@@ -97,6 +96,28 @@ export default function MovieDetails() {
               </ul>
             </>
           )}
+
+          <div className="movie-details__actions">
+            <button
+              className="add-to-cart-btn btn--outline"
+              type="button"
+              onClick={() =>
+                addToCart({ ...movie, cartType: "rent", price: rentPrice })
+              }
+            >
+              Rent • ${rentPrice.toFixed(2)}
+            </button>
+
+            <button
+              className="btn"
+              type="button"
+              onClick={() =>
+                addToCart({ ...movie, cartType: "purchase", price: purchasePrice })
+              }
+            >
+              Buy • ${purchasePrice.toFixed(2)}
+            </button>
+          </div>
         </div>
       </div>
     </div>

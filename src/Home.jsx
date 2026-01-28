@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import './styles.css';
 
 const SEARCH_MAP = {
   holiday: ["christmas", "holiday", "winter"],
@@ -55,7 +56,6 @@ export default function Home() {
     setError(false);
     setLoading(true);
 
-    // Navigate to Movies page with search queries
     navigate("/movies", { state: { mode: "search", queries } });
 
     setLoading(false);
@@ -69,66 +69,7 @@ export default function Home() {
   return (
     <div className={menuOpen ? "menu--open" : ""}>
       <section id="landing">
-        <nav>
-          <div className="nav__row">
-            <div className="nav__logo">
-              <img
-                className="nav__logo--img rock"
-                src="/assets/logo-no-background.png"
-                alt="Logo"
-              />
-              <div className="nav__logo--title"></div>
-            </div>
-
-            <div className="nav__links">
-              <a href="#" className="nav__link no-cursor">
-                About
-              </a>
-              <a href="#" className="nav__link no-cursor">
-                Contact Us
-              </a>
-              <a href="#" className="nav__link nav__link--primary no-cursor">
-                Sign Up
-              </a>
-            </div>
-
-            <button className="btn__menu" onClick={openMenu} type="button">
-              <i className="fa-solid fa-bars"></i>
-            </button>
-
-            <div className="menu__backdrop">
-              <button
-                className="btn__menu btn__menu--close"
-                onClick={closeMenu}
-                type="button"
-              >
-                <i className="fa-solid fa-times"></i>
-              </button>
-
-              <ul className="menu__links">
-                <li className="menu__list">
-                  <a href="#" className="menu__link no-cursor" onClick={closeMenu}>
-                    About
-                  </a>
-                </li>
-                <li className="menu__list">
-                  <a href="#" className="menu__link no-cursor" onClick={closeMenu}>
-                    Contact Us
-                  </a>
-                </li>
-                <li className="menu__list">
-                  <a
-                    href="#"
-                    className="menu__link menu__link--primary no-cursor"
-                    onClick={closeMenu}
-                  >
-                    Sign In
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
+        
 
         <header>
           <div className="header__container">
@@ -171,8 +112,7 @@ export default function Home() {
                             loading ? "" : "is-visible"
                           }`}
                         ></i>
-                        <i
-                          className={`fa-solid fa-spinner movies__loading--spinner ${
+                        <i className={`fa-solid fa-spinner movies__loading--spinner ${
                             loading ? "is-visible" : ""
                           }`}
                         ></i>
@@ -217,30 +157,6 @@ export default function Home() {
           </div>
         </section>     
 
-      <footer>
-        <div className="container footer__container">
-          <div className="row row__column">
-            <a href="#">
-              <figure className="footer__logo">
-                <img
-                  src="/assets/logo-no-background.png"
-                  className="footer__logo--img rock"
-                  alt=""
-                />
-              </figure>
-            </a>
-
-            <div className="footer__list">
-              <a className="footer__link no-cursor">About</a>
-              <a className="footer__link no-cursor">Contact</a>
-            </div>
-
-            <div className="footer__copyright">
-              Copyright &copy; 2025 Beth Coleman Kenward
-            </div>
           </div>
-        </div>
-      </footer>
-    </div>
   );
 }
