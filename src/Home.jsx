@@ -29,7 +29,7 @@ function normalizeQuery(q) {
 export default function Home() {
   const navigate = useNavigate();
 
-  const [menuOpen, setMenuOpen] = useState(false);
+  const menuOpen = false;
 
   const [value, setValue] = useState("");
   const [error, setError] = useState(false);
