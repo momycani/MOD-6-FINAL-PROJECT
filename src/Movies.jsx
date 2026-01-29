@@ -27,7 +27,7 @@ export default function Movies() {
   const { state } = useLocation();
 
   const mode = state?.mode || "browse";
-  const queries = state?.queries || [];
+  const queries = state?.queries ?? BROWSE_QUERIES;
 
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -75,7 +75,7 @@ export default function Movies() {
   return () => {
     cancelled = true;
   };
-}, [mode, JSON.stringify(queries)]);
+}, [mode, queries]);
 
 
   const sortedMovies = useMemo(() => {

@@ -7,7 +7,7 @@ import MovieDetails from "./MovieDetails";
 import Cart from "./Cart"
 import Nav from "./components/Nav";
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faBars, faShoppingCart, faTimes, faStar, faStarHalfAlt, faArrowLeft, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faShoppingCart, faTimes, faStar, faStarHalfAlt, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import Footer from "./Footer";
 
 library.add(faBars, faShoppingCart, faTimes, faStar, faStarHalfAlt, faArrowLeft);

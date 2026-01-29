@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './styles.css';
 
@@ -34,15 +34,6 @@ export default function Home() {
   const [value, setValue] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  const type = useMemo(() => normalizeQuery(value), [value]);
-
-  function openMenu() {
-    setMenuOpen(true);
-  }
-  function closeMenu() {
-    setMenuOpen(false);
-  }
 
   function runSearch() {
     const t = normalizeQuery(value);
