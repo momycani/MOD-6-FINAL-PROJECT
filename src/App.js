@@ -9,6 +9,7 @@ import Nav from "./components/Nav";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faBars, faShoppingCart, faTimes, faStar, faStarHalfAlt, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import Footer from "./Footer";
+import ScrollToTop from "./ScrollToTop"
 
 library.add(faBars, faShoppingCart, faTimes, faStar, faStarHalfAlt, faArrowLeft);
 
@@ -60,6 +61,7 @@ function App() {
   
   return (
     <Router>
+      <ScrollToTop />
       <div className="App">  
         <Nav numberOfItems={numberOfItems()} />    
       <Routes>

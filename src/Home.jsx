@@ -50,12 +50,7 @@ export default function Home() {
     navigate("/movies", { state: { mode: "search", queries } });
 
     setLoading(false);
-  }
-
-  function browseAll() {
-    setError(false);
-    navigate("/movies", { state: { mode: "browse", queries: [] } });
-  }
+   }  
 
   return (
     <div className={menuOpen ? "menu--open" : ""}>
@@ -138,16 +133,7 @@ export default function Home() {
             </figure>
           </div>
         </header>
-      </section>      
-
-        <section id="browse-movies-cta">
-          <div className="container browse-movies-cta">
-            <button type="button" className="btn" onClick={browseAll}>
-              Browse All Movies
-            </button>
-          </div>
-        </section>     
-
-          </div>
+      </section>   
+        </div>
   );
 }
