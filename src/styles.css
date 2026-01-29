@@ -18,7 +18,11 @@ body{
 }
 
 nav {
-   height: 80px;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  z-index: 1000;
 }
 
 img{
@@ -100,6 +104,12 @@ a:hover{
 
 /* LANDING */
 
+#landing {
+  height: 650px;
+  padding: 20px 0 30px 0;
+
+}
+
 .nav__container{
   width: 100%;
   max-width: 1200px;
@@ -179,8 +189,7 @@ li{
   border-radius: 30px;
   padding: 12px 24px;    
   z-index: 2;
-  transition: 300ms ease;
-    
+  transition: 300ms ease;    
 }
 
 .nav__link--primary:hover{
@@ -249,18 +258,17 @@ li{
 /* HEADER */
 
 header {
-  height: 750px;
+  height: 600px;
 }
 
 .header__container {
   width: 100%;
   max-width: 720px;
   margin: 0 auto;
-  height: 100%;
+  height: 600px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 32px;
 }
 
 .header__description {
@@ -355,10 +363,15 @@ header {
 }
 
 .header__img--wrapper {
-  padding: 20px;
-  max-width: 400px;
+  padding: 12px;
+  max-width: 320px;
   width: 100%;
   margin: 0 auto;  
+  /* height: auto; */
+}
+
+.header__img {
+  width: 100%;
   height: auto;
 }
 
@@ -740,6 +753,7 @@ header {
 footer {
   background-color: white;
   text-align: center;
+  height: 350px;
 }
 
 .footer__container {
@@ -843,110 +857,221 @@ footer {
 
 /* MEDIA QUERIES */
 
-/* SMALL PHONES, TABLETS, LARGE SMARTPHONES */
+/* BECAUSE NAV BAR LOOKS FUNNY */
+@media (max-width: 932px) {
+  .nav__link{
+    font-size: 16px;
+  }
+
+  .nav__link--primary{
+    font-size: 16px;
+    border-radius: 30px;
+    padding: 8px 12px;    
+  }
+}
+
+/* TABLETS, LARGE SMARTPHONES */
 @media (max-width: 768px) {
     .nav__row{
-        display: flex;
-        justify-content: space-between;
-        flex-direction: row;
-        padding: 0;
-        margin: auto;
-        width: 100%;
-        padding: 8px 16px 0 16px;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      padding: 0;
+      margin: auto;
+      width: 100%;
+      padding: 8px 16px 0 16px;
     }
 
     .nav__container--movies{
-        display: flex;
-        justify-content: space-between;
-        flex-direction: row;
-        padding: 0 24px;
-        margin: auto;
-        width: 100%;
-        padding: 8px 48px 0 48px;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      padding: 0 24px;
+      margin: auto;
+      width: 100%;
+      padding: 8px 48px 0 48px;
     }
 
     .btn__menu{
-        display: block;   
+      display: block;   
     }
 
     .nav__links{
-        display: none;
+      display: none;
     }
 
     .row{
-        flex-direction: column;
-        text-align: center;
-        padding: 0 32px;
+      flex-direction: column;
+      text-align: center;
+      padding: 0 32px;
     }
 
     .movies__header{
-        padding: 0 24px;
+      padding: 0 24px;
     }
     .movie{
-       width: 50%;      
+      width: 50%;      
     }
 
     .movie__img{
-        height: auto;
-        object-fit: contain;
-        transform: none;
+      height: auto;
+      object-fit: contain;
+      transform: none;
     }
 
     .movie__img--wrapper{
-        height: 240px;
-        overflow: visible;
+      height: 240px;
+      overflow: visible;
     }
    
     .browse-movies-cta {
-        margin-bottom: 8px;
-        margin-top: 20px;
-        padding: 16px;
+      margin-bottom: 8px;
+      margin-top: 20px;
+      padding: 16px;
     }
+
+    .add-to-cart-btn {
+      padding: 8px 12px;
+      font-size: 16px;
+    }
+
+    .btn{
+      padding: 8px 12px;
+      font-size: 16px;
+      font-weight: 500;
+      transition: 300ms ease;
+    } 
+    
+    @media (max-width: 768px) {
+  .movie-details__layout {
+    flex-direction: column;      
+    align-items: center;
   }
+
+  .movie-details__poster {
+    width: 220px;               
+    flex: 0 0 220px;
+  }
+
+  .movie-details__info {
+    max-width: 100%;
+    text-align: center;
+  }
+}
+}
+
+/* LARGE MOBILE, SMALL TABLETS */
+@media (max-width: 640px){
+  .header__description {
+    align-items: center;
+  }
+
+  .header__search-area {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+  }
+
+  h1{
+      font-size: 32px;
+    }
+
+    h2{
+      font-size: 20px;
+    }
+
+    #landing {
+      height: 500px;
+      padding: 20px 0 30px 0;
+    }
+
+    .header__container {
+      width: 100%;
+      max-width: 640px;        
+    }
+
+    .header__search {
+      width: 100%;
+      max-width: 400px;
+      padding: 8px 12px;
+      
+    }
+
+    .header__search--input {
+      width: 100%;
+      font-size: 14px;    
+    }
+
+    .add-to-cart-btn {
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+
+    .btn{
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      transition: 300ms ease;
+    }   
+
+}
 
 /* SMALL PHONES, LARGE SMARTPHONES */
 @media (max-width: 550px){
      
-        .btn__menu{
-            display: block;            
-        }   
+    .btn__menu{
+      display: block;            
+    }   
 
-        .nav__links{
-            display: none;
-        }
+    .nav__links{
+      display: none;
+    }
 
-        .header__description{
-            width: 100%;
-            text-align: center;
-            padding: 0 16px;
-        }
+    .header__description{
+      width: 100%;
+      text-align: center;
+      padding: 0 16px;
+    }
 
-        h1{
-            font-size: 46px;
-        }
+    h1{
+      font-size: 28px;
+    }
 
-        h2{
-            font-size: 24px;
-        }
+    h2{
+      font-size: 18px;
+    }
 
-        .header__img--wrapper{
-            justify-content: center;
-            padding: 0;
-        }
+    .header__img--wrapper{
+      justify-content: center;
+      padding: 0;
+    }
 
-        .header__img{
-            width: 100%;
-        }
+    .header__img{
+      width: 100%;
+    }
 
-        .movie__prices {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
+    .movie__prices {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
 
-        .browse-movies-cta {
-            margin-bottom: 8px;
-            margin-top: 20px;
-            padding: 16px;
-        }
+    .browse-movies-cta {
+      margin-bottom: 8px;
+      margin-top: 20px;
+      padding: 16px;
+    }
+
+    .add-to-cart-btn {
+      padding: 8px 12px;
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .btn{
+      padding: 8px 12px;
+      font-size: 16px;
+      font-weight: 500;
+      transition: 300ms ease;
+    }   
     }

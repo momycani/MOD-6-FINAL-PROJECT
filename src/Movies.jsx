@@ -28,6 +28,7 @@ export default function Movies() {
 
   const mode = state?.mode || "browse";
   const queries = state?.queries ?? BROWSE_QUERIES;
+  const title = state?.title ?? "";
 
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -44,11 +45,19 @@ export default function Movies() {
     setEmpty(false);
 
     try {
-      const qList = mode === "browse" ? BROWSE_QUERIES : queries;
+      let unique = [];
 
-      const results = await Promise.all(qList.map(fetchMovies));
-      const combined = results.flat();
-      const unique = dedupeByImdbID(combined);
+if (mode === "title") {
+  // single title search
+  const results = await fetchMovies(title);
+  unique = dedupeByImdbID(results);
+} else {
+  // browse or genre-search (list of queries)
+  const qList = mode === "browse" ? BROWSE_QUERIES : queries;
+  const results = await Promise.all(qList.map(fetchMovies));
+  const combined = results.flat();
+  unique = dedupeByImdbID(combined);
+}
 
       if (!cancelled) {
         setMovies(unique);
@@ -75,7 +84,7 @@ export default function Movies() {
   return () => {
     cancelled = true;
   };
-}, [mode, queries]);
+}, [mode, queries, title]);
 
 
   const sortedMovies = useMemo(() => {

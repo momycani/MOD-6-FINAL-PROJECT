@@ -35,14 +35,17 @@ export default function Home() {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  function runSearch() {
-    const t = normalizeQuery(value);
+function runSearch() {
+  const raw = value.trim();
+  if (!raw) {
+    setError(true);
+    return;
+  }
 
-    if (t === "other") {
-      setError(true);
-      return;
-    }
+  const t = normalizeQuery(raw);
 
+  // 1) If it's a known genre keyword → use your mapped genre queries
+  if (t !== "other") {
     const queries = SEARCH_MAP[t];
     setError(false);
     setLoading(true);
@@ -50,7 +53,17 @@ export default function Home() {
     navigate("/movies", { state: { mode: "search", queries } });
 
     setLoading(false);
-   }  
+    return;
+  }
+
+  // 2) Otherwise → treat it as a movie title search
+  setError(false);
+  setLoading(true);
+
+  navigate("/movies", { state: { mode: "title", title: raw } });
+
+  setLoading(false);
+}
 
   return (
     <div className={menuOpen ? "menu--open" : ""}>
@@ -75,7 +88,7 @@ export default function Home() {
                     <input
                       type="text"
                       className="header__search--input"
-                      placeholder="Search movies by genre..."
+                      placeholder="Search movies by title or genre..."
                       value={value}
                       onChange={(e) => {
                         setValue(e.target.value);
@@ -127,9 +140,8 @@ export default function Home() {
                 )}
               </div>
             </div>
-
             <figure className="header__img--wrapper">
-              <img src="/assets/undraw_home-cinema_jdm1.svg" alt="" />
+              <img src="/assets/3593.jpg" alt="" />
             </figure>
           </div>
         </header>
