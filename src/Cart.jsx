@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import EmptyCart from "./empty_cart.svg";
 
 const Cart = ({ cart, changeQuantity, removeItem }) => {

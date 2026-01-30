@@ -141,7 +141,7 @@ function runSearch() {
               </div>
             </div>
             <figure className="header__img--wrapper">
-              <img src="/assets/3593.jpg" alt="" />
+              <img src="/assets/3593-v2.jpg" alt="" />
             </figure>
           </div>
         </header>
